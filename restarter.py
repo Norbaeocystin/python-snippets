@@ -27,7 +27,7 @@ def restarter(interval = settings.interval, script = settings.script, threads = 
         script: name of script, e.q. : 'helloworld.py'
         threads: number of scripts, default is 1 
     '''
-    logger.debug(f'Starting {settings.script} will restart in {settings.interval}')
+    logger.debug('Restarter starts')
     while True:
         data = []
         for i in range(threads):
