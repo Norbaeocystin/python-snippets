@@ -14,6 +14,6 @@ def export_to_excel(name, collection, database):
     '''
     data = list(client[databse][collection].find({},{'_id':0}))
     df =  pd.DataFrame(data)
-    writer = pd.ExcelWriter('{}.xlsx'.format(name), engine='xlsxwriter')
+    #writer = pd.ExcelWriter('{}.xlsx'.format(name), engine='xlsxwriter')
     df.to_excel(writer, sheet_name='Sheet1')
-    writer.save()
+    #writer.save()
