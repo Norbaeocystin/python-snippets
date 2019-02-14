@@ -2,7 +2,7 @@
 Short function using Pandas to export data from MongoDB to excel
 '''
 import pandas as pd
-from pymongo import *
+from pymongo import MongoClient
 
 #connection to MongoDB
 client = MongoClient('mongodb://localhost')
