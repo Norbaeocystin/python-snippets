@@ -15,9 +15,10 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-s', '--script', action="store", dest="script", help = 'name of script, e.q. : helloworld.py')
 parser.add_argument('-i', '--interval', action="store", dest="interval", type=int, help = 'duration of loop in seconds, e.g. 10')
 parser.add_argument('-t', '--threads', action="store", dest="threads", type=int, default = 1, help = 'number of threads, default is 1')
+parser.add_argument('-d', '--delay', action="store", dest="delay", type=int, default = 0, help = 'delay between running next process, default is 0')
 settings = parser.parse_args()
 
-def restarter(interval = settings.interval, script = settings.script, threads = settings.threads):
+def restarter(interval = settings.interval, script = settings.script, threads = settings.threads, delay = settings.delay):
     '''
     starts script after defined interval of seconds will restart script and so on and so on
     infinite loop
@@ -33,8 +34,12 @@ def restarter(interval = settings.interval, script = settings.script, threads = 
         for i in range(threads):
             try:
                 data.append(Popen(['python3', script]))
+                if delay:
+                    time.sleep(delay)
             except:
                 data.append(Popen(['python', script]))
+                if delay:
+                    time.sleep(delay)
         time.sleep(interval)
         for item in data:
             item.kill()
