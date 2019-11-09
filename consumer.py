@@ -92,4 +92,5 @@ try:
             process(message)
 except KeyboardInterrupt:
     cleanup()
+    exit()
     
