@@ -6,7 +6,7 @@ from pykafka import KafkaClient
 from pymongo import MongoClient
 from scrapify import Scraper
 
-logging.basicConfig(filename='consumer.log', level=logging.ERROR,  format = '%(asctime)s %(name)s %(levelname)s %(message)s')
+logging.basicConfig(filename='consumer.log', level=logging.DEBUG,  format = '%(asctime)s %(name)s %(levelname)s %(message)s')
 logging.getLogger("pykafka").setLevel(logging.WARNING)
 logging.getLogger("kazoo").setLevel(logging.WARNING)
 logging.getLogger("requests").setLevel(logging.WARNING)
@@ -15,9 +15,9 @@ logger = logging.getLogger()
 
 #Defaults 
 MONGO_URI = 'localhost:27017'
-KAFKA_URI = "0.0.0.0:9092"
-ZOOKEEPER_URI = '0.0.0.0:2181'
-CONSUMER_GROUP = "docker"
+KAFKA_URI = "192.168.100.17:9092"
+ZOOKEEPER_URI = '192.168.100.17:2181'
+CONSUMER_GROUP = "Docker"
 DEFAULT_DB = 'Kafka'
 DEFAULT_COLL = 'Source'
 
@@ -48,7 +48,12 @@ def process(message):
     logger.debug(message.value.decode())
     if data_from_kafka:
         doc = json.loads(data_from_kafka)
-        _id = objectid.ObjectId(doc['_id']['$oid'])
+        _id = doc['_id']
+        #some _id are ObjectId some are not
+        try:
+            _id = objectid.ObjectId(_id['$oid'])
+        except TypeError:
+            pass
         web = doc.get('Website')
         command = doc.get('Command')
         if web and command:
@@ -93,4 +98,3 @@ try:
 except KeyboardInterrupt:
     cleanup()
     exit()
-    
