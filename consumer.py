@@ -28,7 +28,7 @@ coll = CON[DEFAULT_DB][DEFAULT_COLL]
 client = KafkaClient(hosts=KAFKA_URI)
 topic = client.topics['Mongo.Kafka.Source']
 
-scraper = Scraper()
+scraper = Scraper(timeout=10)
 commands = {}
 commands['OnlyEmails'] = scraper.get_emails_from_url
 commands['Emails'] = scraper.get_emails_and_social_networks_from_url
