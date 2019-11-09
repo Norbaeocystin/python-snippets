@@ -15,8 +15,8 @@ logger = logging.getLogger()
 
 #Defaults 
 MONGO_URI = 'localhost:27017'
-KAFKA_URI = "192.168.100.17:9092"
-ZOOKEEPER_URI = '192.168.100.17:2181'
+KAFKA_URI = "0.0.0.0:9092"
+ZOOKEEPER_URI = '0.0.0.0:2181'
 CONSUMER_GROUP = "Docker"
 DEFAULT_DB = 'Kafka'
 DEFAULT_COLL = 'Source'
